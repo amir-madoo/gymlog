@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="GymLog" />
+  <meta name="theme-color" content="#0C0D10" />
+  <meta name="color-scheme" content="dark" />
+  <title>GymLog — 12-Week Aesthetic Tracker</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-row">
+      <div class="brand">
+        <h1>GymLog</h1>
+        <span class="date-sub" id="todayDateLabel"></span>
+      </div>
+      <div class="topbar-actions">
+        <button class="week-pill" id="weekPillBtn" type="button" aria-label="Select program week">Wk 1 / 12</button>
+        <button class="icon-btn" id="settingsBtn" type="button" aria-label="Settings">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.85 1 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <nav class="day-strip" id="dayStrip" aria-label="Days of week"></nav>
+  </header>
+
+  <main class="container" id="appMain"></main>
+
+  <!-- Floating Rest Timer -->
+  <div class="timer-bar" id="timerBar" role="status" aria-live="polite">
+    <div class="timer-left">
+      <div class="timer-clock" id="timerClock">02:00</div>
+      <div class="timer-label" id="timerLabel">Rest Timer</div>
+    </div>
+    <div class="timer-btns">
+      <button class="t-btn" id="timerMinus" type="button">-15s</button>
+      <button class="t-btn" id="timerPlus" type="button">+15s</button>
+      <button class="t-btn" id="timerToggle" type="button">Pause</button>
+      <button class="t-btn" id="timerClose" type="button" aria-label="Close timer">✕</button>
+    </div>
+  </div>
+
+  <!-- Settings & Week Modal -->
+  <div class="modal-backdrop" id="settingsModal">
+    <div class="modal-sheet">
+      <div class="modal-head">
+        <h2>Programme &amp; Backup</h2>
+        <button class="secondary-btn" id="closeSettingsBtn" type="button">Done</button>
+      </div>
+
+      <div class="setting-block">
+        <div class="setting-title">Active Programme Week (Auto-Scales Cardio &amp; Steps)</div>
+        <div class="setting-desc" id="phaseSummaryText"></div>
+        <div class="week-grid" id="weekGrid"></div>
+      </div>
+
+      <div class="setting-block">
+        <div class="setting-title">Backup &amp; Restore</div>
+        <div class="setting-desc">All logs stay locally on your phone. Export a JSON backup occasionally before switching phones or clearing Safari data.</div>
+        <div class="btn-row">
+          <button class="secondary-btn" id="exportBtn" type="button">Download Backup</button>
+          <button class="secondary-btn" id="copyBackupBtn" type="button">Copy JSON</button>
+          <button class="secondary-btn" id="importTriggerBtn" type="button">Import Backup</button>
+          <input type="file" id="importFileInput" accept="application/json" style="display:none" />
+        </div>
+      </div>
+
+      <div class="setting-block">
+        <div class="setting-title">Reset</div>
+        <div class="btn-row">
+          <button class="danger-btn" id="resetDataBtn" type="button">Erase All Saved Logs</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script defer src="./program.js"></script>
+  <script defer src="./app.js"></script>
+</body>
+</html>
